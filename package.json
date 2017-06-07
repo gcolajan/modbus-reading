@@ -1,0 +1,36 @@
+{
+  "name": "modbusexport",
+  "version": "1.0.0",
+  "description": "Reading registers from modbus at interval and storing them every specified occurence",
+  "main": "build/index.js",
+  "scripts": {
+    "start": "npm-run-all --parallel start:*",
+    "start:web": "http-server reports",
+    "start:service": "node build/index.js",
+    "extract": "node build/extract.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "modbus",
+    "reading",
+    "interval",
+    "database",
+    "csv",
+    "storage",
+    "service"
+  ],
+  "author": "Gautier Colajanni",
+  "license": "MIT",
+  "dependencies": {
+    "http-server": "^0.10.0",
+    "modbus-serial": "^5.2.9",
+    "node-schedule": "^1.2.1",
+    "npm-run-all": "^4.0.2",
+    "sqlite3": "^3.1.8"
+  },
+  "devDependencies": {
+    "@types/node": "^7.0.18",
+    "ts-node": "^3.0.4",
+    "typescript": "^2.3.2"
+  }
+}
