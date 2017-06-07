@@ -1,7 +1,7 @@
 {
 	"readInterval": 60000, // Time between two read operations (ms)
 	"requiredOccurences": 5, // How many reading to do before inserting the average of them into DB
-	"inMemoryDB": true, // Specify to save DB in memory
+	"inMemoryDB": false, // Specify to save DB in memory
 	"controllers": [ // List of controller to connect to
 		{
 			"name": "DEMO",
@@ -9,7 +9,7 @@
 			"port": "502", // Port used (null for default)
 			"slaveId": 1, // Slave id, if unknow, set to 1
 			"registers": [ // List of registers to read from current controller (specify the type: INT16, UINT32, the unit to store into DB and coefficient to apply before storage)
-				{"address": 154, "length": 32, "signed": false, "unit": "A", "coefficient": 0.1}
+				{"label": "Ia", "address": 154, "length": 32, "signed": false, "unit": "A", "coefficient": 0.1}
 			]
 		}	
 	]
