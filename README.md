@@ -73,14 +73,16 @@ The DB is mostly used to keep data in safe place before creating the reports. Ke
 			"slaveId": 1,
 			// List of registers to read from current controller
 			"registers": [
-				// Specify the address, and the type with length and signed or not (ex: INT16, UINT32),
+				// Specify the address, and the type with length and signed or not (ex: INT16, UINT32, FLOAT32),
 				//  the unit to store into DB and coefficient to apply before storage
-				{"label": "Ia", "address": 154, "length": 32, "signed": false, "unit": "A", "coefficient": 0.1}
+				{"label": "Ia", "address": 154, "integer": true, "length": 32, "signed": false, "unit": "A", "coefficient": 0.1}
 			]
 		}	
 	]
 }
 ```
+
+Recognized types: `INT16`, `UINT16`, `INT32`, `UINT32` and `FLOAT32`.
 
 ## Output files
 

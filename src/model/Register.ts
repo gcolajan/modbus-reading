@@ -6,6 +6,7 @@ export interface RegisterConfiguration {
 	address: number;
 	length: number;
 	signed: boolean;
+	integer: boolean;
 	unit: string;
 	coefficient: number;
 }
@@ -16,6 +17,7 @@ export class Register {
 	private _address: number;
 	private _length: number;
 	private _signed: boolean;
+	private _integer: boolean;
 	private _unit: string;
 	private _coefficient: number;
 
@@ -24,6 +26,7 @@ export class Register {
 	get length(): number { return this._length; }
 	get nbNativeRegisters(): number { return this._length / REGISTER_LENGTH; }
 	get signed(): boolean { return this._signed; }
+	get integer(): boolean { return this._integer; }
 	get unit(): string { return this._unit; }
 	get coefficient(): number { return this._coefficient; }
 
@@ -32,6 +35,7 @@ export class Register {
 		this._address = conf.address;
 		this._length = conf.length;
 		this._signed = conf.signed;
+		this._integer = conf.integer;
 		this._unit = conf.unit;
 		this._coefficient = conf.coefficient;
 	}

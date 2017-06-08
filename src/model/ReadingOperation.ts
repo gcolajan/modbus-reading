@@ -34,12 +34,21 @@ export class ReadingOperation {
 		this._registers.forEach(r => {
 
 			let readValue;
-			if (r.nbNativeRegisters === 1) {
-				readValue = r.signed ? buffer.readInt16BE(bufferOffset) : buffer.readUInt16BE(bufferOffset);
-			} else if (r.nbNativeRegisters === 2) {
-				readValue = r.signed ? buffer.readInt32BE(bufferOffset) : buffer.readUInt32BE(bufferOffset);
-			} else {
-				throw new Error("Can't extract values which aren't using 1 or 2 registers.");
+			if (r.integer) {
+				if (r.nbNativeRegisters === 1) {
+					readValue = r.signed ? buffer.readInt16BE(bufferOffset) : buffer.readUInt16BE(bufferOffset);
+				} else if (r.nbNativeRegisters === 2) {
+					readValue = r.signed ? buffer.readInt32BE(bufferOffset) : buffer.readUInt32BE(bufferOffset);
+				} else {
+					throw new Error("Can't extract values which aren't using 1 or 2 registers.");
+				}
+			}
+			else {
+				if (r.nbNativeRegisters === 2) {
+					readValue = buffer.readFloatBE(bufferOffset);
+				} else {
+					throw new Error("Can't extract float if not using exactly 2 registers.");
+				}
 			}
 
 			values.push({

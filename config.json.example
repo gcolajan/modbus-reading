@@ -8,8 +8,8 @@
 			"address": "127.0.0.1", // IP address to the ModBus controller
 			"port": "502", // Port used (null for default)
 			"slaveId": 1, // Slave id, if unknow, set to 1
-			"registers": [ // List of registers to read from current controller (specify the type: INT16, UINT32, the unit to store into DB and coefficient to apply before storage)
-				{"label": "Ia", "address": 154, "length": 32, "signed": false, "unit": "A", "coefficient": 0.1}
+			"registers": [ // List of registers to read from current controller (specify the type: INT16, UINT32, FLOAT32 the unit to store into DB and coefficient to apply before storage)
+				{"label": "Ia", "address": 154, "integer": true, "length": 32, "signed": false, "unit": "A", "coefficient": 0.1}
 			]
 		}	
 	]
