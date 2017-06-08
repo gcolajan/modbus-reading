@@ -21,7 +21,8 @@ const extractor = new RowExtractor('./reports/custom/');
 extractor.setReader((callback: RowFunction, endCb: Function) => storage.readInterval(startDate, endDate, false, callback, endCb));
 extractor.setColumnNames("Timestamp UTC", "Timestamp", "Value", "Source", "Measurement", "Unit");
 extractor.setFormatFunction((row) => {
-	return [row["date_utc"], row["date_local"], row["value"].toFixed(MAX_PRECISION), row["controller"], row["register"], row["unit"]];
+	const val = row["value"] ? row["value"].toFixed(MAX_PRECISION) : "NULL";
+	return [row["date_utc"], row["date_local"], val, row["controller"], row["register"], row["unit"]];
 });
 extractor.writeCSV(file, ',', '"', (nbRow) => {
 	console.log(`Done! ${nbRow} row(s) extracted.`);

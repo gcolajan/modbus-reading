@@ -33,7 +33,8 @@ export class ExtractHelper {
 	private static configureExtractor(extractor: RowExtractor): void {
 		extractor.setColumnNames("Timestamp UTC", "Timestamp", "Value", "Source", "Measurement", "Unit");
 		extractor.setFormatFunction((row) => {
-			return [row["date_utc"], row["date_local"], row["value"].toFixed(MAX_PRECISION), row["controller"], row["register"], row["unit"]];
+			const val = row["value"] ? row["value"].toFixed(MAX_PRECISION) : "NULL";
+			return [row["date_utc"], row["date_local"], val, row["controller"], row["register"], row["unit"]];
 		});
 	}
 }
