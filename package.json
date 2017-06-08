@@ -4,6 +4,7 @@
   "description": "Reading registers from modbus at interval and storing them every specified occurence",
   "main": "build/index.js",
   "scripts": {
+    "install": "tsc",
     "start": "npm-run-all --parallel start:*",
     "start:web": "http-server reports",
     "start:service": "node build/index.js",
