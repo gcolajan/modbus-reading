@@ -15,7 +15,7 @@ export class ModBusProvider extends BaseProvider {
     connect(): Promise<any> {
         return new Promise((resolve, reject) => {
             try{   
-                this.client.connectTCP("10.148.49.35", {port: 502}, resolve);
+                this.client.connectTCP(this.host, {port: this.port}, resolve);
             } catch(e) {
                 reject(e);
             }
