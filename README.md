@@ -92,3 +92,27 @@ An example of files the service would generate daily.
 "2017-06-02 22:20:00","2017-06-02 18:20:00","150.3200","DEMO","Ia","A"
 "2017-06-02 22:21:00","2017-06-02 18:21:00","151.7000","DEMO","Ia","A"
 ```
+
+## Production running suggestion
+
+On a Debian-based distribution
+
+```sh
+# Install recent version of Node.js
+
+cd ~
+git clone https://github.com/gcolajan/modbus-reading.git
+cd modbus-reading
+npm install
+
+cd ~
+sudo npm install -g pm2
+pm2 startup
+pm2 start modbus-reading/build/index.js -n modbusread
+
+sudo apt-get install nginx
+sudo nano /etc/nginx/site-available/default
+# Change root for <HOME>/modbus-reading/reports/
+# Add "autodindex on;" for file discovery
+sudo service nginx restart
+```
