@@ -1,15 +1,11 @@
 export class DatasetHelper {
 
-	/**
-	 * Flatten an array
-	 */
+	/** Flatten an array */
 	static flatten(arrays) {
 		return [].concat.apply([], arrays);
 	}
 
-	/**
-	 * Summarize a dataset by returning one line with average values
-	 */
+	/** Summarize a dataset by returning one line with average values */
 	static summarize(dataset) {
 		if (dataset.length === 0) {
 			throw new Error('No data has been collected, can\'t summarize');
@@ -32,7 +28,7 @@ export class DatasetHelper {
 
 
 		// Sum
-		dataset.forEach((d) => {
+		dataset.forEach(d => {
 			for (let i = 0 ; i < d.data.length ; i++) {
 				finalData.data[i].data += d.data[i].data;
 			}

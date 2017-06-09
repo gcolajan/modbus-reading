@@ -3,7 +3,6 @@ import { Register, RegisterConfiguration } from '../model/Register';
 
 /**
  * Returns a controller list from the controllers configuration structure
- * 
  * @param {any} configuration 
  * @returns {Controller[]} 
  */

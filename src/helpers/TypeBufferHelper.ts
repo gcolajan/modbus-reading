@@ -1,3 +1,4 @@
+/** Defines the currently supported types to be read from the ModBus buffer */
 export type SupportedType = 'INT16' | 'UINT16' | 'INT32' | 'UINT32' | 'FLOAT32';
 
 export class TypeBufferHelper {
@@ -13,14 +14,10 @@ export class TypeBufferHelper {
 
 	/**
 	 * Gives the value from the buffer at the specified offset
-	 * 
-	 * @static
 	 * @param {SupportedType} type Specify the type that should be read
 	 * @param {Buffer} buffer Buffer to read from
 	 * @param {number} [offset=0] Where to start the reading inside the buffer
 	 * @returns {number} 
-	 * 
-	 * @memberof TypeBufferHelper
 	 */
 	static read(type: SupportedType, buffer: Buffer, offset: number = 0): number {
 		switch(type) {
@@ -35,7 +32,7 @@ export class TypeBufferHelper {
 			case 'FLOAT32':
 				return buffer.readFloatBE(offset);
 			default:
-				throw new Error("Not supported type for buffer conversion.");
+				throw new Error('Not supported type for buffer conversion.');
 		}
 	}
 }
