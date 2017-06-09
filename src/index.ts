@@ -18,7 +18,7 @@ if (debugMode) {
     console.warn('Debug mode enabled!');
 }
 
-console.log(`Service started (frq: ${config.readInterval}ms, occ: ${config.requiredOccurences})!`);
+console.log(`Service started (frq: ${config.readFrequency.interval}ms, occ: ${config.readFrequency.requiredOccurences})!`);
 
 
 // Define operation that should be executed every day
@@ -77,12 +77,12 @@ controllerFetching.forEach((v, i) => buffer[i] = []);
 // At each call, we will run the controller fetching operation and save it to DB every required interval
 const fetchFunction = () => {
     // For each controller, store dataset obtained into a buffer
-    console.log("Fetching at:", new Date());
+    console.log("[" + new Date().toISOString() + "] fetch");
     controllerFetching.forEach((fetch, index)  => {
         fetch()
             .then((dataset) => {
                 buffer[index] = [dataset, ...buffer[index]];
-                if (buffer[index].length % config.requiredOccurences === 0) {
+                if (buffer[index].length % config.readFrequency.requiredOccurences === 0) {
                     const summarizedData = DatasetHelper.summarize(buffer[index]);
                     storage.save(summarizedData);
                     storage.close();
@@ -95,5 +95,10 @@ const fetchFunction = () => {
 };
 
 // Run!
-fetchFunction();
-setInterval(fetchFunction, config.readInterval);
+if (config.readFrequency.scheduled) {
+    schedule.scheduleJob(config.readFrequency.scheduled, fetchFunction);
+}
+else {
+    fetchFunction();
+    setInterval(fetchFunction, config.readFrequency.interval);
+}

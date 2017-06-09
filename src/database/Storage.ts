@@ -41,7 +41,6 @@ export class Storage {
     read(date: Date, fn: RowFunction, endFn: Function): void {
         this._db.serialize(() => {
             const sqlDate = getSqlUtc(date).substr(0, 10);
-            console.log("..", sqlDate);
             const src = this._dateSource;
             this._db.each(`
                 SELECT date_utc, date_local, value, controller, register, unit
@@ -91,14 +90,11 @@ export class Storage {
             const triggerDate = new Date()
             triggerDate.setDate(triggerDate.getDate() - keepDays);
             const triggerStrDate = getSqlLocal(triggerDate).slice(0, 10);
-            console.log(`DELETE FROM history
-                WHERE date(${src}) < date('${triggerStrDate}')`);
             this._db.run(`
                 DELETE FROM history
                 WHERE date(${src}) < date('${triggerStrDate}')`);
         });
     }
-
 
     close(): void {
         // this._db.close();

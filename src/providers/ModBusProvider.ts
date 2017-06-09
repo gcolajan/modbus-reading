@@ -27,8 +27,6 @@ export class ModBusProvider extends BaseProvider {
     }
 
     close(): void {
-        return this.client.close(() => {
-            // console.log(`Controller connection to: ${this.host}:${this.port}/${this.deviceNumber} is closed.`);
-        });
+        return this.client.close(() => {});
     }
 }

@@ -44,6 +44,8 @@ If for any reason you need to generate a custom extract from DB, you could use:
 npm run extract YYYY-MM-DD YYYY-MM-DD custom_output.csv
 ```
 
+It would be generated inside *reports/custom*.
+
 Keep in mind you would be able to run this if the data is still present in the database (2 months).
 
 ## Configuration
@@ -54,13 +56,18 @@ The DB is mostly used to keep data in safe place before creating the reports. Ke
 
 ```js
 {
-	// Time between two read operations (ms)
-	"readInterval": 60000,
-	 // How many reading to do before inserting the average of them into DB
-	"requiredOccurences": 5,
 	// Specify to save DB in memory
 	"inMemoryDB": false,
-	// List of controller to connect to
+	// Time, as cron format, where we should run the daily tasks
+	"interventionTime": "30 0 * * *",
+	"readFrequency": {
+		// Time between two read operations (ms), won't be used if scheduled
+		"interval": 60000,
+		// How many reading to do before inserting the average of them into DB
+		"requiredOccurences": 5,
+		// If false, would be interval-based, otherwise, you can specify a cron compatible syntax: "1 * * * *"
+		"scheduled": false
+	},
 	"controllers": [
 		{
 			// Controller's name, to be printed inside reports
@@ -73,9 +80,9 @@ The DB is mostly used to keep data in safe place before creating the reports. Ke
 			"slaveId": 1,
 			// List of registers to read from current controller
 			"registers": [
-				// Specify the address, and the type with length and signed or not (ex: INT16, UINT32, FLOAT32),
+				// Specify the address, and the type with length and signed or not (supported: INT16, UINT16, INT32, UINT32, FLOAT32),
 				//  the unit to store into DB and coefficient to apply before storage
-				{"label": "Ia", "address": 154, "integer": true, "length": 32, "signed": false, "unit": "A", "coefficient": 0.1}
+				{"label": "Ia", "address": 154, "type": "INT16", "unit": "A", "coefficient": 1.0}
 			]
 		}	
 	]

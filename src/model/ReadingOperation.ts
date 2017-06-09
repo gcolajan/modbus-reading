@@ -1,4 +1,5 @@
-import { REGISTER_LENGTH, Register, RegisterConfiguration } from './Register';
+import { Register } from './Register';
+import { TypeBufferHelper } from '../helpers/TypeBufferHelper';
 
 export class ReadingOperation {
 
@@ -32,33 +33,14 @@ export class ReadingOperation {
 		const values = [];
 		let bufferOffset = 0;
 		this._registers.forEach(r => {
-
-			let readValue;
-			if (r.integer) {
-				if (r.nbNativeRegisters === 1) {
-					readValue = r.signed ? buffer.readInt16BE(bufferOffset) : buffer.readUInt16BE(bufferOffset);
-				} else if (r.nbNativeRegisters === 2) {
-					readValue = r.signed ? buffer.readInt32BE(bufferOffset) : buffer.readUInt32BE(bufferOffset);
-				} else {
-					throw new Error("Can't extract values which aren't using 1 or 2 registers.");
-				}
-			}
-			else {
-				if (r.nbNativeRegisters === 2) {
-					readValue = buffer.readFloatBE(bufferOffset);
-				} else {
-					throw new Error("Can't extract float if not using exactly 2 registers.");
-				}
-			}
-
+			const readValue = TypeBufferHelper.read(r.type, buffer, bufferOffset);
 			values.push({
 				label: r.label,
 				data: r.convertValue(readValue),
 				unit: r.unit
 			});
 
-			// 1 register is 16 bits => 2 bytes
-			bufferOffset += r.nbNativeRegisters * (REGISTER_LENGTH / 8);
+			bufferOffset += TypeBufferHelper.getLength(r.type) / 8;
 		});
 		return values;
 	}

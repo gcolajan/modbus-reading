@@ -36,7 +36,7 @@ export class CsvHelper {
 	static cleanLastMonthFiles(): void {
 		CsvHelper.getAllNamesFromLastMonth().forEach(name => {
 			const path = REPORTS_DIR + name;
-			fs.unlink(path, () => console.log("DELETED: " + path));
+			fs.unlink(path, () => console.log("[" + new Date().toISOString() + "] delete: " + path));
 		});
 	}
 
