@@ -56,8 +56,7 @@ export class Controller {
 	/** Adds the register to the list if not already present */
 	addRegister(register: Register): void {
 		if (this.registers.indexOf(register) !== -1) {
-			console.error('Register already bound to current controller');
-			return;
+			throw new Error('Register already bound to current controller');
 		}
 
 		this.registers.push(register);
