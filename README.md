@@ -1,5 +1,7 @@
 # ModBus reading
 
+[![Build Status](https://travis-ci.org/gcolajan/modbus-reading.svg?branch=master)](https://travis-ci.org/gcolajan/modbus-reading)
+
 Tool dedicated to read several registers on several controllers through ModBus protocol. The interval between readings is configurable, data can be aggregated before storage.
 
 The purpose is to expose CSV files through HTTP.
